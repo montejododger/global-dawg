@@ -1,6 +1,8 @@
-// imported the fetch dog function over
+// imports
 import { fetchSelectedDogs } from "./scripts/dog";
+import { drawMap } from "./scripts/maps";
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchSelectedDogs();
+    drawMap();
 });
