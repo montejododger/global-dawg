@@ -1,0 +1,182 @@
+body,
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/*        NAV BAR              */
+nav {
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+    height: 60px;
+    background-color: #ccc;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Open Sans", sans-serif;
+}
+
+.logo {
+    color: darkgoldenrod;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font: 40px;
+    margin-right: auto;
+    padding-left: 20px;
+    padding: 10px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 5%;
+    padding: 10px;
+    margin-left: auto;
+}
+
+.nav-links li {
+    color: darkgoldenrod;
+    text-decoration: none;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 30px;
+    align-items: end;
+}
+
+a:link,
+i {
+    color: rgb(3, 115, 195);
+}
+
+i:hover {
+    color: black;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+/*           INFO BOX   */
+li {
+    list-style: none;
+    text-align: center;
+}
+
+.right {
+    flex: 1;
+    background-size: cover;
+    overflow-x: hidden;
+    padding-top: 10px;
+    display: flex; /* turn on flexbox */
+    justify-content: center; /* center horizontally */
+    align-items: center; /* center vertically */
+    text-align: center; /* center text */
+}
+.right .text-wrapper {
+    display: flex;
+    flex-direction: column; /* stack items vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/*                              SPLIT SCREEN               */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, #654321, #d2b48c);
+    background-size: cover;
+    /* align-items: center; */
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+}
+
+.left,
+.right {
+    flex: 1;
+    overflow-x: hidden;
+    padding-top: 10px;
+}
+.left h2,
+.left h5,
+.right h3,
+.right p {
+    color: #333;
+    text-align: center;
+    font-family: "Open Sans", sans-serif;
+}
+/*                              DOG IMG CONTAINER              */
+.dog-img-list {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2px;
+}
+
+.dog-img-item {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.dog-img-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    filter: grayscale(100%);
+    transition: filter 0s ease;
+}
+.dog-img-item img:hover {
+    filter: grayscale(0%);
+}
+
+
+/*                              FOOTER              */
+
+footer {
+    background-color: #ccc;
+    box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.2);
+    color: #333;
+    font-family: "Open Sans", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.footer-links a {
+    color: darkgoldenrod;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 14px;
+    align-items: center;
+}
+
+.footer-links a:hover {
+    color: black;
+    transition: 0.5s;
+}
+
+footer .copy {
+    font-size: 12px;
+}
