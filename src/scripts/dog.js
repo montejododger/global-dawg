@@ -1,5 +1,13 @@
-
-
+const breedToCountryMap = {
+    "chinese-shar-pei": "china",
+    "bull-terrier": "argentina",
+    "golden-retriever": "india",
+    "shih-tzu": "philippines",
+    "australian-shepherd": "united-states",
+    "shiba-inu": "japan",
+    rottweiler: "brazil",
+    "doberman-pinscher": "russia",
+};
 
 const api_key =
     "live_IMV5RlpU4XaI26YknUNIxE1fFnIbdBbStDAFX71eTd7LRttKRLdca6c8f2UDhLng";
@@ -69,17 +77,6 @@ export const fetchSelectedDogs = () => {
         "Doberman Pinscher", // Russia
     ];
 
-    const breedToCountryMap = {
-        "Chinese Shar-Pei": "CHINA",
-        "Bull Terrier": "ARGENTINA",
-        "Golden Retriever": "INDIA",
-        "Shih Tzu": "PHILLIPINES",
-        "Australian Shepherd": "USA",
-        "Shiba Inu": "JAPAN",
-        "Rottweiler": "BRAZIL",
-        "Doberman Pinscher": "RUSSIA"
-    };
-
     // initialize and empty array for conatiners to append to
     const dogInfoContainers = [];
     const dogImgContainers = [];
@@ -108,7 +105,7 @@ export const fetchSelectedDogs = () => {
         // each result has a DogData and dogImg in it
         results.forEach((result) => {
             // console.log(result);
-            dogImgContainers.push(createImgContainer(result.dogImg, breedToCountryMap));
+            dogImgContainers.push(createImgContainer(result.dogImg));
             dogInfoContainers.push(createDogContainer(result.dogData));
         });
 
@@ -168,7 +165,6 @@ function createDogContainer(dogData) {
 }
 
 function createImgContainer(dogImgData) {
-
     // Format the name of the breed for usage in class and data attribute
     const formattedName = dogImgData[0].breeds[0].name
         .toLowerCase()
@@ -203,9 +199,18 @@ function createImgContainer(dogImgData) {
         if (infoContainer) {
             infoContainer.style.display = "block";
         } else {
-            console.log(`No info container found for ${clickedDog}`); // Log if no matching info container is found
+            console.log(`No info container found for ${clickedDog}`);
         }
-        
+
+        // Show country container for the clicked dog
+        const countryContainer = document.querySelector(
+            `.country-container.${clickedDog}`
+        );
+        if (countryContainer) {
+            countryContainer.style.display = "block";
+        } else {
+            console.log(`No country container found for ${clickedDog}`);
+        }
     });
 
     // Create an image element from the API data
@@ -220,4 +225,37 @@ function createImgContainer(dogImgData) {
     return container;
 }
 
+function createCountryContainer() {
+    const container = document.createElement("div");
+    container.classList.add("country-container");
+    container.style.display = "none";
 
+    // Create an unordered list for country images
+    const imgList = document.createElement("ul");
+    imgList.classList.add("country-img-list");
+    container.appendChild(imgList);
+
+    // Add country images to the list
+    const countryImages = [
+        "china.png",
+        "argentina.png",
+        "india.png",
+        "philippines.png",
+        "united-states.png",
+        "japan.png",
+        "brazil.png",
+        "russia.png",
+    ];
+
+    countryImages.forEach((image) => {
+        const imgItem = document.createElement("li");
+        const img = document.createElement("img");
+        console.log(image);
+        img.src = `./imgs/${image}`;
+        img.alt = image.replace(".png", "");
+        imgItem.appendChild(img);
+        imgList.appendChild(imgItem);
+    });
+
+    return container;
+}
