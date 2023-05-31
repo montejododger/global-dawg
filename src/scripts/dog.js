@@ -73,15 +73,19 @@ export function createDogContainer(dogData) {
 export function createImgContainer(dogImgData) {
     const dog = dogImgData[0].breeds[0];
     const formattedName = dog.name.toLowerCase().replace(/\s+/g, "-");
+    // console.log(formattedName);
 
     const imgItem = document.createElement("li");
     imgItem.className = `dog-img-item ${formattedName}`;
     imgItem.dataset.dog = formattedName;
+    // console.log("item list: ", imgItem);
 
     imgItem.innerHTML = `<img src="${dogImgData[0].url}" alt="${dog.name}">`;
     imgItem.onclick = displayDogInfo.bind(null, formattedName);
 
     document.querySelector(".dog-img-list").appendChild(imgItem);
+
+    return imgItem;
 }
 
 function displayDogInfo(clickedDog) {
@@ -100,12 +104,11 @@ function displayDogInfo(clickedDog) {
     }
 }
 
-
 export const fetchAllDogs = async () => {
     try {
         const allDogs = await getAllBreeds();
-        const allDogContainter = []; 
 
+        const allDogGallery = document.getElementById("all-dog-container");
         const select = document.createElement("select");
         select.id = "dogs-select";
 
@@ -116,8 +119,9 @@ export const fetchAllDogs = async () => {
             select.appendChild(option);
         });
 
-        console.log(select);
-        document.body.appendChild(select); // Append the select to the body (or to another container)
+        allDogGallery.appendChild(select);
+
+        // console.log(allDogGallery);
 
         select.addEventListener("change", async (event) => {
             const selectedDogName = event.target.value;
@@ -134,6 +138,8 @@ export const fetchAllDogs = async () => {
             dogInfoGallery.appendChild(dogInfoContainer);
 
             const dogImgList = document.querySelector(".dog-img-list");
+            // console.log(dogImgList);
+            // console.log(dogImgContainer);
             dogImgList.innerHTML = ""; // Clear previous data
             dogImgList.appendChild(dogImgContainer);
         });
@@ -141,4 +147,3 @@ export const fetchAllDogs = async () => {
         console.log(error);
     }
 };
-
