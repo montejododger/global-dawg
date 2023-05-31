@@ -1,37 +1,68 @@
-import { getAllBreeds } from "./dogAPI";
+
+
+import { getAllBreeds, getDogImg } from "./dogAPI";
 
 export const fetchAllDogs = async () => {
-    // an array to push the names into for the scrool down
-    const dogNamesContainer = [];
-    // an array of all the bio
-    const dogBioContainer = [];
-    //all img info 
-    const dogImgContainer = []
+    // Create a container object to store the dog info and image elements for each dog
+    const dogElements = {};
 
     try {
         const allDogs = await getAllBreeds();
-        // console.log(allDogs);
+
+        // Get the select element from the page
+        const dogSelector = document.getElementById("dog-selector");
 
         allDogs.forEach((dog) => {
-            dogNamesContainer.push(dog.name)
-            dogBioContainer.push(createDogContainer(dog))
-            dogImgContainer.push(createImgContainer(dog.image))
+            // Create an option element for the dog and add it to the select element
+            const option = document.createElement("option");
+            option.value = dog.name;
+            option.textContent = dog.name;
+            dogSelector.appendChild(option);
+
+            // Create the dog info and image elements and store them in the container object
+            const dogInfoElement = createDogContainer(dog);
+            const dogImgElement = createImgContainer(dog.image);
+            dogElements[dog.name] = { dogInfoElement, dogImgElement };
+
+            // Start with the dog info and image hidden
+            dogInfoElement.style.display = "none";
+            dogImgElement.style.display = "none";
+
+            // Add the dog info and image elements to the page
+            document
+                .getElementById("all-dog-info-container")
+                .appendChild(dogInfoElement);
+            document
+                .querySelector(".all-dog-img-container")
+                .appendChild(dogImgElement);
         });
 
-        console.log(dogImgContainer);
-        // console.log(dogBioContainer);
+        // Add an event listener to the select element to show the correct dog info and image when a dog name is selected
+        dogSelector.addEventListener("change", (event) => {
+            const selectedDogName = event.target.value;
 
+            // Hide all dog info and images
+            for (let dogName in dogElements) {
+                dogElements[dogName].dogInfoElement.style.display = "none";
+                dogElements[dogName].dogImgElement.style.display = "none";
+            }
 
+            // Show the selected dog's info and image
+            if (dogElements[selectedDogName]) {
+                dogElements[selectedDogName].dogInfoElement.style.display =
+                    "block";
+                dogElements[selectedDogName].dogImgElement.style.display =
+                    "block";
+            }
+        });
     } catch (error) {
         console.log(error);
     }
 };
-
-export function createDogContainer(dogData) {
+function createDogContainer(dogData) {
     const formattedName = dogData.name.toLowerCase().replace(/\s+/g, "-");
     const li = document.createElement("li");
-    li.classList.add("all-dog-container", formattedName);
-    li.style.display = "none";
+    li.classList.add("all-dog-info-container", formattedName);
 
     const propsToDisplay = {
         name: "Name",
@@ -51,26 +82,20 @@ export function createDogContainer(dogData) {
         } else {
             item.textContent = `${propsToDisplay[prop]}: ${dogData[prop]}`;
         }
-        // console.log("item: ", item);
         li.append(item);
     }
 
     return li;
 }
 
-
 function createImgContainer(dogImgData) {
-    // console.log(dogImgData);
-    const dogImgId = dogImgData.id
+    const dogImgId = dogImgData.id;
 
     const imgItem = document.createElement("li");
-    imgItem.className = `all-img-container ${dogImgId}`;
+    imgItem.className = `all-dog-img-container ${dogImgId}`;
     imgItem.dataset.dog = dogImgId;
 
     imgItem.innerHTML = `<img src="${dogImgData.url}" alt="${dogImgData.id}">`;
-    // imgItem.onclick = displayDogInfo.bind(null, formattedName);
-
-    document.querySelector(".all-dog-img").appendChild(imgItem);
 
     return imgItem;
 }
