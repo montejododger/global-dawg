@@ -1,5 +1,3 @@
-
-
 import { getAllBreeds, getDogImg } from "./dogAPI";
 
 export const fetchAllDogs = async () => {
@@ -51,6 +49,7 @@ export const fetchAllDogs = async () => {
             if (dogElements[selectedDogName]) {
                 dogElements[selectedDogName].dogInfoElement.style.display =
                     "block";
+                    dogElements[selectedDogName].dogImgElement.children[0].classList.add("dawg")
                 dogElements[selectedDogName].dogImgElement.style.display =
                     "block";
             }
@@ -59,13 +58,13 @@ export const fetchAllDogs = async () => {
         console.log(error);
     }
 };
+
 function createDogContainer(dogData) {
     const formattedName = dogData.name.toLowerCase().replace(/\s+/g, "-");
     const li = document.createElement("li");
     li.classList.add("all-dog-info-container", formattedName);
 
     const propsToDisplay = {
-        name: "Name",
         bred_for: "Bred For",
         temperament: "Temperament",
         life_span: "Life Span",
@@ -73,6 +72,11 @@ function createDogContainer(dogData) {
         height: "Height",
         weight: "Weight",
     };
+
+    // Create an h3 element for the dog name
+    const name = document.createElement("h3");
+    name.textContent = dogData.name;
+    li.append(name); // Append the dog name to the li element
 
     for (let prop in propsToDisplay) {
         const item = document.createElement("p");

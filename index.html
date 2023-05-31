@@ -10,6 +10,8 @@
             src="https://kit.fontawesome.com/89141e24fe.js"
             crossorigin="anonymous"
         ></script>
+        <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet">
+
         <link
             href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap"
             rel="stylesheet"
@@ -33,7 +35,7 @@
     <body>
         <nav>
             <div class="logo">
-                <h4>Global Dawgs</h4>
+                <h3 class="title">Global Dawgs</h4>
             </div>
             <ul class="nav-links">
                 <li>
@@ -54,22 +56,23 @@
         <div class="container">
             <div class="left">
                 <h2>Top 8 Dawgs of The World</h2>
-                <h5>Click on a dawg to find more information out</h5>
+                <h5>Click on a dawg to find out more information!</h5>
                 <div class="dog-img-container" id="dog-img-container">
                     <ul class="dog-eight-img-list"></ul>
                 </div>
+                <div
+                    class="dog-eight-info-container hidden"
+                    id="dog-eight-info-container"
+                ></div>
                 <!-- <div class="map-container" id="regions_div"></div> -->
             </div>
             <div class="right">
+                <h3 class="curious">Curious About Another Dawg</h3>
+                <select class="dog-selector" name="" id="dog-selector">
+                    <option value="">Select A Dog</option>
+                </select>
                 <div class="text-wrapper">
-                    <div
-                        class="dog-eight-info-container"
-                        id="dog-eight-info-container"
-                    ></div>
                     <div class="all-dog-container" id="all-dog-container">
-                        <select name="" id="dog-selector">
-                            <option value="">Curious About A Dog</option>
-                        </select>
                         <div
                             class="all-dog-img-container"
                             id="all-dog-img-container

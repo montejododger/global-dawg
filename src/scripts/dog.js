@@ -3,13 +3,13 @@ import { getDogInfo, getDogImg } from "./dogAPI.js";
 export const fetchSelectedDogs = async () => {
     const dogs = [
         "Chinese Shar-Pei",
-        "Bull Terrier",
+        "Labrador Retriever",
         "Golden Retriever",
         "Shih Tzu",
-        "Australian Shepherd",
+        "Alaskan Husky",
         "Shiba Inu",
-        "Rottweiler",
-        "Doberman Pinscher",
+        "Yorkshire Terrier",
+        "German Shepherd",
     ];
 
     const dogInfoContainers = [];
@@ -48,7 +48,6 @@ export function createDogContainer(dogData) {
     li.style.display = "none";
 
     const propsToDisplay = {
-        name: "Name",
         bred_for: "Bred For",
         temperament: "Temperament",
         life_span: "Life Span",
@@ -56,6 +55,11 @@ export function createDogContainer(dogData) {
         height: "Height",
         weight: "Weight",
     };
+
+    // Create an h3 element for the dog name
+    const name = document.createElement("h3");
+    name.textContent = dogData.name;
+    li.append(name);  // Append the dog name to the li element
 
     for (let prop in propsToDisplay) {
         const item = document.createElement("p");
@@ -65,7 +69,6 @@ export function createDogContainer(dogData) {
         } else {
             item.textContent = `${propsToDisplay[prop]}: ${dogData[prop]}`;
         }
-        // console.log("item: ", item);
         li.append(item);
     }
 
@@ -96,10 +99,16 @@ function displayDogInfo(clickedDog) {
         (container) => (container.style.display = "none")
     );
 
+    const blackBox = document.querySelector(".dog-eight-info-container");
+
+
     const infoContainer = document.querySelector(
         `.dog-item-info.${clickedDog}`
     );
+
+    
     if (infoContainer) {
+        blackBox.classList.remove("hidden")
         infoContainer.style.display = "block";
     } else {
         console.error(`No info container found for ${clickedDog}`);

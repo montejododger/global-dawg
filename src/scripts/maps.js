@@ -6,7 +6,7 @@
 // async function drawMap() {
 //     google.charts.load("current", {
 //         packages: ["geochart"],
-//         mapsApiKey: "AIzaSyBKs1KRFvsVDje7wSqK8LuK9AzJunG_4ro",
+//         mapsApiKey: "",
 //         callback: drawRegionsMap,
 //     });
 

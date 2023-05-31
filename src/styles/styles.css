@@ -13,7 +13,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Racing Sans One', cursive;
 }
 
 .logo {
@@ -54,28 +54,29 @@ i:hover {
     transition: 0.5s;
     cursor: pointer;
 }
-
-/*           INFO BOX   */
 li {
     list-style: none;
     text-align: center;
 }
 
+/*                                          Right Side                                     */
+
 .right {
+    display: flex;
     flex: 1;
-    background-size: cover;
+    /* background-size: cover; */
     overflow-x: hidden;
     padding-top: 10px;
-    display: flex; /* turn on flexbox */
-    justify-content: center; /* center horizontally */
-    align-items: center; /* center vertically */
-    text-align: center; /* center text */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+
+    /* align-items: center; */
+    /* text-align: center; center text */
 }
 .right .text-wrapper {
     display: flex;
-    flex-direction: column; /* stack items vertically */
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
     text-align: center;
 }
 
@@ -85,7 +86,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #654321, #d2b48c);
+    background: linear-gradient(to right, #b76d22, #afa79c);
     background-size: cover;
     /* align-items: center; */
 }
@@ -100,21 +101,45 @@ body {
     flex: 1;
     overflow-x: hidden;
     padding-top: 10px;
+    padding: 10px;
 }
 .left h2,
 .left h5,
 .right h3,
 .right p {
-    color: #333;
-    text-align: center;
-    font-family: "Open Sans", sans-serif;
+    /* text-align: center; */
+    font-family: 'Racing Sans One', cursive;
 }
-/*                              DOG IMG CONTAINER              */
+
+/*                             DOG ITEM INFO            */
+
+.right {
+    display: flex;
+    flex-direction: column;
+    /* align-content: space-around; */
+}
+.text-wrapper {
+    padding: 10px;
+}
+
+.dog-eight-info-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    /* border: 2px solid black; */
+    border-radius: 5px;
+    padding: 30px;
+    margin: 10px;
+    margin-top: 80px; /* Adjust this value as needed */
+    background-color: #9d9c9c;
+    box-shadow: -5px 5px 2px rgb(48, 48, 48);
+}
+/*                                                  DOG IMG CONTAINER              */
 .dog-eight-img-list {
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 2px;
+    grid-gap: 3px;
 }
 
 .dog-left-img-item {
@@ -122,6 +147,8 @@ body {
     padding-bottom: 100%;
     position: relative;
     overflow: hidden;
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 .dog-left-img-item img {
@@ -131,14 +158,93 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
     border-radius: 5px;
     filter: grayscale(100%);
-    transition: filter 0s ease;
+    transition: filter 0.3s ease;
 }
-.dog-left-img-item img:hover {
+
+.dog-left-img-item.labrador-retriever::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://iconsplace.com/wp-content/uploads/_icons/000000/256/png/number-1-icon-256.png");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+.dog-left-img-item.german-shepherd-dog::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://iconsplace.com/wp-content/uploads/_icons/000000/256/png/number-2-icon-256.png");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+
+.dog-left-img-item.golden-retriever::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/3-icon/3-icon-26.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+
+.dog-left-img-item.chinese-shar-pei::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/number-4-icon/number-4-icon-10.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+.dog-left-img-item.yorkshire-terrier::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/5-icon/5-icon-10.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+
+.dog-left-img-item:hover::after {
+    opacity: 1;
     filter: grayscale(0%);
 }
 
+.dog-left-img-item:hover img {
+    filter: grayscale(0%);
+}
 
 /*                              FOOTER              */
 
@@ -146,7 +252,7 @@ footer {
     background-color: #ccc;
     box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.2);
     color: #333;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Racing Sans One', cursive;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -179,4 +285,64 @@ footer {
 
 footer .copy {
     font-size: 12px;
+}
+
+/*                              ACCENTS             */
+
+h2,
+h5,
+p {
+    text-align: center;
+    color: rgb(66, 60, 135);
+    padding: 5px;
+}
+h2 {
+    font-size: 50px;
+}
+h5 {
+    font-size: 20px;
+}
+
+li > h3 {
+    color: rgb(63, 146, 146);
+    font-size: 50px;
+    font-family: 'Racing Sans One', cursive;
+}
+li > p {
+    font-family: 'Racing Sans One', cursive;
+    color: rgb(7, 62, 62);
+    font-size: 25px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.dawg {
+    display: flex;
+    align-content: center;
+    object-fit: contain;
+    margin-left: 25px;
+    width: 700px;
+    height: 200px;
+}
+
+h3.curious {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 100px;
+    margin-bottom: 40px;
+}
+
+div .dog-selector {
+    top: 19%;
+    right: 18%;
+    position: absolute;
+    margin-left: 200px;
+    width: 200px;
+}
+
+.title{
+    padding-left: 10px;
 }
