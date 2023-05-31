@@ -1,261 +1,144 @@
-const breedToCountryMap = {
-    "chinese-shar-pei": "china",
-    "bull-terrier": "argentina",
-    "golden-retriever": "india",
-    "shih-tzu": "philippines",
-    "australian-shepherd": "united-states",
-    "shiba-inu": "japan",
-    rottweiler: "brazil",
-    "doberman-pinscher": "russia",
-};
+import { getDogInfo, getDogImg, getAllBreeds } from "./dogAPI.js";
 
-const api_key =
-    "live_IMV5RlpU4XaI26YknUNIxE1fFnIbdBbStDAFX71eTd7LRttKRLdca6c8f2UDhLng";
-
-// Basic fetch to grab breed info
-const getDogInfo = (dog) => {
-    return fetch(`https://api.thedogapi.com/v1/breeds/search?q=${dog}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Something went wrong");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            return data[0];
-        });
-};
-
-// i.e of how to do grab with async
-// export const getDogImg = async (id) => {
-//     const response = await fetch(
-//         `https://api.thedogapi.com/v1/images/search?breed_ids=${id}
-//         `,
-//         {
-//             headers: {
-//                 "x-api-key": api_key,
-//             },
-//         }
-//     );
-//     if (!response.ok) {
-//         throw new Error("Something went wrong");
-//     }
-//     const data = await response.json();
-//     return data;
-// };
-
-// Didnt need an async for this operation
-const getDogImg = (id) => {
-    return fetch(`https://api.thedogapi.com/v1/images/search?breed_ids=${id}`, {
-        headers: {
-            "x-api-key": api_key,
-        },
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Something went wrong");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            return data;
-        });
-};
-
-// Func that calls getInfo/getImg
-// builds a container for each for each of them
-// calls both createDogContainer & createImgContainer
-export const fetchSelectedDogs = () => {
+export const fetchSelectedDogs = async () => {
     const dogs = [
         "Chinese Shar-Pei",
-        "Bull Terrier", //Argentina
-        "Golden Retriever", // INDIA
-        "Shih Tzu", //Phill
-        "Australian Shepherd", // USA
-        "Shiba Inu", // Japan
-        "Rottweiler", //Brazil
-        "Doberman Pinscher", // Russia
+        "Bull Terrier",
+        "Golden Retriever",
+        "Shih Tzu",
+        "Australian Shepherd",
+        "Shiba Inu",
+        "Rottweiler",
+        "Doberman Pinscher",
     ];
 
-    // initialize and empty array for conatiners to append to
     const dogInfoContainers = [];
     const dogImgContainers = [];
 
-    // Go over the dog Arr and map them
-    // grab every dogs promise(info/img)
-    const dogPromises = dogs.map((dog) => {
-        return getDogInfo(dog)
-            .then((dogData) => {
-                return getDogImg(dogData.id).then((dogImg) => {
-                    return {
-                        dogData,
-                        dogImg,
-                    };
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    });
-    // console.log(dogPromises); -- gives an arry of 8 promises
+    try {
+        const dogPromises = dogs.map(async (dog) => {
+            const dogData = await getDogInfo(dog);
+            const dogImg = await getDogImg(dogData.id);
+            return { dogData, dogImg };
+        });
 
-    // Go thru all the promises and extract the info/img
-    // push to the container
-    return Promise.all(dogPromises).then((results) => {
-        // each result has a DogData and dogImg in it
+        const results = await Promise.all(dogPromises);
+
         results.forEach((result) => {
-            // console.log(result);
             dogImgContainers.push(createImgContainer(result.dogImg));
             dogInfoContainers.push(createDogContainer(result.dogData));
         });
 
         const dogInfoGallery = document.getElementById("dog-info-container");
+
         dogInfoContainers.forEach((container) => {
             dogInfoGallery.appendChild(container);
         });
-    });
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-//Make a container for every dog which houses all its info
-// 1 container and info appeneded
-function createDogContainer(dogData) {
-    //initalize a "div" container with class added
-
+export function createDogContainer(dogData) {
     const formattedName = dogData.name.toLowerCase().replace(/\s+/g, "-");
     const li = document.createElement("li");
     li.classList.add("dog-item-info", formattedName);
     li.style.display = "none";
 
-    //Grab name data and appened it to container
-    const name = document.createElement("h3");
-    name.textContent = dogData.name;
-    li.append(name);
+    const propsToDisplay = {
+        name: "Name",
+        bred_for: "Bred For",
+        temperament: "Temperament",
+        life_span: "Life Span",
+        breed_group: "Breed Group",
+        height: "Height",
+        weight: "Weight",
+    };
 
-    //Grab Bred data ...
-    const bredFor = document.createElement("p");
-    bredFor.textContent = `Bred For: ${dogData.bred_for}`;
-    li.append(bredFor);
-
-    //Grab temperment....
-    const temperament = document.createElement("p");
-    temperament.textContent = `Temperament: ${dogData.temperament}`;
-    li.append(temperament);
-
-    //Grab life span....
-    const lifeSpan = document.createElement("p");
-    lifeSpan.textContent = `Life Span: ${dogData.life_span}`;
-    li.append(lifeSpan);
-
-    //Grab... breed group
-    const breedGroup = document.createElement("p");
-    breedGroup.textContent = `Breed Group: ${dogData.breed_group}`;
-    li.append(breedGroup);
-
-    //Grab height in both(in, cm) ...
-    const height = document.createElement("p");
-    height.textContent = `Height: ${dogData.height.imperial} inches (${dogData.height.metric} cm)`;
-    li.append(height);
-
-    // Grab weight .......
-    const weight = document.createElement("p");
-    weight.textContent = `Weight: ${dogData.weight.imperial} lbs (${dogData.weight.metric} kg)`;
-    li.append(weight);
+    for (let prop in propsToDisplay) {
+        const item = document.createElement("p");
+        if (typeof dogData[prop] === "object") {
+            // This handles height and weight which are objects
+            item.textContent = `${propsToDisplay[prop]}: ${dogData[prop].imperial} (imperial) / ${dogData[prop].metric} (metric)`;
+        } else {
+            item.textContent = `${propsToDisplay[prop]}: ${dogData[prop]}`;
+        }
+        // console.log("item: ", item);
+        li.append(item);
+    }
 
     return li;
 }
 
-function createImgContainer(dogImgData) {
-    // Format the name of the breed for usage in class and data attribute
-    const formattedName = dogImgData[0].breeds[0].name
-        .toLowerCase()
-        .replace(/\s+/g, "-");
+export function createImgContainer(dogImgData) {
+    const dog = dogImgData[0].breeds[0];
+    const formattedName = dog.name.toLowerCase().replace(/\s+/g, "-");
 
-    // Grab container and unordered list
-    let container = document.querySelector(".dog-img-container");
-    let imgList = container.querySelector(".dog-img-list");
-
-    // Create an li for each image and add its class
     const imgItem = document.createElement("li");
-    imgItem.classList.add("dog-img-item", formattedName);
-    imgItem.setAttribute("data-dog", formattedName);
+    imgItem.className = `dog-img-item ${formattedName}`;
+    imgItem.dataset.dog = formattedName;
 
-    // Create an event listener for clicks on the image
-    imgItem.addEventListener("click", () => {
-        // Get the dog type from the clicked image
-        let clickedDog = imgItem.getAttribute("data-dog");
+    imgItem.innerHTML = `<img src="${dogImgData[0].url}" alt="${dog.name}">`;
+    imgItem.onclick = displayDogInfo.bind(null, formattedName);
 
-        // Get all dog information containers
-        const allInfoContainers = document.querySelectorAll(".dog-item-info");
+    document.querySelector(".dog-img-list").appendChild(imgItem);
+}
 
-        // Hide all dog information containers
-        allInfoContainers.forEach((container) => {
-            container.style.display = "none";
+function displayDogInfo(clickedDog) {
+    const allInfoContainers = document.querySelectorAll(".dog-item-info");
+    allInfoContainers.forEach(
+        (container) => (container.style.display = "none")
+    );
+
+    const infoContainer = document.querySelector(
+        `.dog-item-info.${clickedDog}`
+    );
+    if (infoContainer) {
+        infoContainer.style.display = "block";
+    } else {
+        console.error(`No info container found for ${clickedDog}`);
+    }
+}
+
+
+export const fetchAllDogs = async () => {
+    try {
+        const allDogs = await getAllBreeds();
+        const allDogContainter = []; 
+
+        const select = document.createElement("select");
+        select.id = "dogs-select";
+
+        allDogs.forEach((dog) => {
+            const option = document.createElement("option");
+            option.value = dog.name;
+            option.text = dog.name;
+            select.appendChild(option);
         });
 
-        // Display only the container with the same dog type as the clicked image
-        const infoContainer = document.querySelector(
-            `.dog-item-info.${clickedDog}`
-        );
-        if (infoContainer) {
-            infoContainer.style.display = "block";
-        } else {
-            console.log(`No info container found for ${clickedDog}`);
-        }
+        console.log(select);
+        document.body.appendChild(select); // Append the select to the body (or to another container)
 
-        // Show country container for the clicked dog
-        const countryContainer = document.querySelector(
-            `.country-container.${clickedDog}`
-        );
-        if (countryContainer) {
-            countryContainer.style.display = "block";
-        } else {
-            console.log(`No country container found for ${clickedDog}`);
-        }
-    });
+        select.addEventListener("change", async (event) => {
+            const selectedDogName = event.target.value;
+            const dogData = await getDogInfo(selectedDogName);
+            const dogImg = await getDogImg(dogData.id);
 
-    // Create an image element from the API data
-    const imgEle = document.createElement("img");
-    imgEle.src = dogImgData[0].url;
-    imgEle.alt = `${dogImgData[0].breeds[0].name}`;
+            // Create the containers for the selected dog and append them
+            const dogImgContainer = createImgContainer(dogImg);
+            const dogInfoContainer = createDogContainer(dogData);
 
-    // Append the image element to the li and the li to the image list
-    imgItem.appendChild(imgEle);
-    imgList.appendChild(imgItem);
+            const dogInfoGallery =
+                document.getElementById("dog-info-container");
+            dogInfoGallery.innerHTML = ""; // Clear previous data
+            dogInfoGallery.appendChild(dogInfoContainer);
 
-    return container;
-}
+            const dogImgList = document.querySelector(".dog-img-list");
+            dogImgList.innerHTML = ""; // Clear previous data
+            dogImgList.appendChild(dogImgContainer);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-function createCountryContainer() {
-    const container = document.createElement("div");
-    container.classList.add("country-container");
-    container.style.display = "none";
-
-    // Create an unordered list for country images
-    const imgList = document.createElement("ul");
-    imgList.classList.add("country-img-list");
-    container.appendChild(imgList);
-
-    // Add country images to the list
-    const countryImages = [
-        "china.png",
-        "argentina.png",
-        "india.png",
-        "philippines.png",
-        "united-states.png",
-        "japan.png",
-        "brazil.png",
-        "russia.png",
-    ];
-
-    countryImages.forEach((image) => {
-        const imgItem = document.createElement("li");
-        const img = document.createElement("img");
-        console.log(image);
-        img.src = `./imgs/${image}`;
-        img.alt = image.replace(".png", "");
-        imgItem.appendChild(img);
-        imgList.appendChild(imgItem);
-    });
-
-    return container;
-}

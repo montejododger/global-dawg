@@ -1,7 +1,7 @@
 // imports
-import { fetchSelectedDogs } from "./scripts/dog";
-import { initMap } from "./scripts/maps";
+import { fetchSelectedDogs, fetchAllDogs } from "./scripts/dog";
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchSelectedDogs();
+    fetchAllDogs();
 });
