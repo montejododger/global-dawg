@@ -110,21 +110,21 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 /*                              DOG IMG CONTAINER              */
-.dog-img-list {
+.dog-eight-img-list {
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 2px;
 }
 
-.dog-img-item {
+.dog-left-img-item {
     width: 100%;
     padding-bottom: 100%;
     position: relative;
     overflow: hidden;
 }
 
-.dog-img-item img {
+.dog-left-img-item img {
     position: absolute;
     top: 0;
     left: 0;
@@ -135,7 +135,7 @@ body {
     filter: grayscale(100%);
     transition: filter 0s ease;
 }
-.dog-img-item img:hover {
+.dog-left-img-item img:hover {
     filter: grayscale(0%);
 }
 

@@ -1,4 +1,4 @@
-import { getDogInfo, getDogImg, getAllBreeds } from "./dogAPI.js";
+import { getDogInfo, getDogImg } from "./dogAPI.js";
 
 export const fetchSelectedDogs = async () => {
     const dogs = [
@@ -29,7 +29,9 @@ export const fetchSelectedDogs = async () => {
             dogInfoContainers.push(createDogContainer(result.dogData));
         });
 
-        const dogInfoGallery = document.getElementById("dog-info-container");
+        const dogInfoGallery = document.getElementById(
+            "dog-eight-info-container"
+        );
 
         dogInfoContainers.forEach((container) => {
             dogInfoGallery.appendChild(container);
@@ -76,14 +78,14 @@ export function createImgContainer(dogImgData) {
     // console.log(formattedName);
 
     const imgItem = document.createElement("li");
-    imgItem.className = `dog-img-item ${formattedName}`;
+    imgItem.className = `dog-left-img-item ${formattedName}`;
     imgItem.dataset.dog = formattedName;
     // console.log("item list: ", imgItem);
 
     imgItem.innerHTML = `<img src="${dogImgData[0].url}" alt="${dog.name}">`;
     imgItem.onclick = displayDogInfo.bind(null, formattedName);
 
-    document.querySelector(".dog-img-list").appendChild(imgItem);
+    document.querySelector(".dog-eight-img-list").appendChild(imgItem);
 
     return imgItem;
 }
@@ -103,47 +105,3 @@ function displayDogInfo(clickedDog) {
         console.error(`No info container found for ${clickedDog}`);
     }
 }
-
-export const fetchAllDogs = async () => {
-    try {
-        const allDogs = await getAllBreeds();
-
-        const allDogGallery = document.getElementById("all-dog-container");
-        const select = document.createElement("select");
-        select.id = "dogs-select";
-
-        allDogs.forEach((dog) => {
-            const option = document.createElement("option");
-            option.value = dog.name;
-            option.text = dog.name;
-            select.appendChild(option);
-        });
-
-        allDogGallery.appendChild(select);
-
-        // console.log(allDogGallery);
-
-        select.addEventListener("change", async (event) => {
-            const selectedDogName = event.target.value;
-            const dogData = await getDogInfo(selectedDogName);
-            const dogImg = await getDogImg(dogData.id);
-
-            // Create the containers for the selected dog and append them
-            const dogImgContainer = createImgContainer(dogImg);
-            const dogInfoContainer = createDogContainer(dogData);
-
-            const dogInfoGallery =
-                document.getElementById("dog-info-container");
-            dogInfoGallery.innerHTML = ""; // Clear previous data
-            dogInfoGallery.appendChild(dogInfoContainer);
-
-            const dogImgList = document.querySelector(".dog-img-list");
-            // console.log(dogImgList);
-            // console.log(dogImgContainer);
-            dogImgList.innerHTML = ""; // Clear previous data
-            dogImgList.appendChild(dogImgContainer);
-        });
-    } catch (error) {
-        console.log(error);
-    }
-};

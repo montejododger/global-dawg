@@ -1,5 +1,6 @@
 // imports
-import { fetchSelectedDogs, fetchAllDogs } from "./scripts/dog";
+import { fetchSelectedDogs } from "./scripts/dog";
+import {  fetchAllDogs } from "./scripts/allBreeds";
 
 document.addEventListener("DOMContentLoaded", () => {
     fetchSelectedDogs();
