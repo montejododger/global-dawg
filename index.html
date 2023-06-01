@@ -4,6 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <script
@@ -61,6 +63,11 @@
                 <!-- <div class="map-container" id="regions_div"></div> -->
             </div>
             <div class="right">
+                <audio id="myAudio">
+                    <source src="./src/dogsOut.mp3" type="audio/mp3">
+                </audio>
+
+                <button class="cus_plyBtn" id="playButton"></button>
                 <h3 class="curious">Curious About Another Dawg</h3>
                 <select class="dog-selector" name="" id="dog-selector">
                     <option disabled selected >Select A Dawg</option>
@@ -84,5 +91,19 @@
             <div class="copy">&copy; 2023 GLOBAL DAWGS</div>
             <div class=""></div>
         </footer>
+
+        <script>
+            let myAudio = document.getElementById("myAudio");
+            let playButton = document.getElementById("playButton");
+          
+            playButton.addEventListener("click", function() {
+              myAudio.currentTime = 0;
+              if (myAudio.paused) {
+                myAudio.play();
+              } else {
+                myAudio.pause();
+              }
+            });
+        </script>
     </body>
 </html>
