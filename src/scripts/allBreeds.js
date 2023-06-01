@@ -1,5 +1,6 @@
-import { getAllBreeds, getDogImg } from "./dogAPI";
+import { getAllBreeds } from "./dogAPI";
 
+// Fetches data for all breeds and populates the dog selector dropdown.
 export const fetchAllDogs = async () => {
     // Create a container object to store the dog info and image elements for each dog
     const dogElements = {};
@@ -49,57 +50,69 @@ export const fetchAllDogs = async () => {
             if (dogElements[selectedDogName]) {
                 dogElements[selectedDogName].dogInfoElement.style.display =
                     "block";
-                    dogElements[selectedDogName].dogImgElement.children[0].classList.add("dawg")
+                dogElements[
+                    selectedDogName
+                ].dogImgElement.children[0].classList.add("dawg");
                 dogElements[selectedDogName].dogImgElement.style.display =
                     "block";
             }
         });
     } catch (error) {
-        console.log(error);
+        console.error("Error occurred while fetching all dogs: ", error);
     }
 };
 
+// Creates an info container for the given dog data
 function createDogContainer(dogData) {
-    const formattedName = dogData.name.toLowerCase().replace(/\s+/g, "-");
-    const li = document.createElement("li");
-    li.classList.add("all-dog-info-container", formattedName);
+    try {
+        const formattedName = dogData.name.toLowerCase().replace(/\s+/g, "-");
+        const li = document.createElement("li");
+        li.classList.add("all-dog-info-container", formattedName);
 
-    const propsToDisplay = {
-        bred_for: "Bred For",
-        temperament: "Temperament",
-        life_span: "Life Span",
-        breed_group: "Breed Group",
-        height: "Height",
-        weight: "Weight",
-    };
+        const propsToDisplay = {
+            bred_for: "Bred For",
+            temperament: "Temperament",
+            life_span: "Life Span",
+            breed_group: "Breed Group",
+            height: "Height",
+            weight: "Weight",
+        };
 
-    // Create an h3 element for the dog name
-    const name = document.createElement("h3");
-    name.textContent = dogData.name;
-    li.append(name); // Append the dog name to the li element
+        // Create an h3 element for the dog name
+        const name = document.createElement("h3");
+        name.textContent = dogData.name;
+        li.append(name); // Append the dog name to the li element
 
-    for (let prop in propsToDisplay) {
-        const item = document.createElement("p");
-        if (typeof dogData[prop] === "object") {
-            // This handles height and weight which are objects
-            item.textContent = `${propsToDisplay[prop]}: ${dogData[prop].imperial} (imperial) / ${dogData[prop].metric} (metric)`;
-        } else {
-            item.textContent = `${propsToDisplay[prop]}: ${dogData[prop]}`;
+        for (let prop in propsToDisplay) {
+            const item = document.createElement("p");
+            if (typeof dogData[prop] === "object") {
+                // This handles height and weight which are objects
+                item.textContent = `${propsToDisplay[prop]}: ${dogData[prop].imperial} (imperial) / ${dogData[prop].metric} (metric)`;
+            } else {
+                item.textContent = `${propsToDisplay[prop]}: ${dogData[prop]}`;
+            }
+            li.append(item);
         }
-        li.append(item);
-    }
 
-    return li;
+        return li;
+    } catch (error) {
+        console.error("Error occurred while creating dog container: ", error);
+    }
 }
 
+// Creates an image container for the given dog image data
 function createImgContainer(dogImgData) {
-    const dogImgId = dogImgData.id;
+    try {
+        const dogImgId = dogImgData.id;
 
-    const imgItem = document.createElement("li");
-    imgItem.className = `all-dog-img-container ${dogImgId}`;
-    imgItem.dataset.dog = dogImgId;
+        const imgItem = document.createElement("li");
+        imgItem.className = `all-dog-img-container ${dogImgId}`;
+        imgItem.dataset.dog = dogImgId;
 
-    imgItem.innerHTML = `<img src="${dogImgData.url}" alt="${dogImgData.id}">`;
+        imgItem.innerHTML = `<img src="${dogImgData.url}" alt="${dogImgData.id}">`;
 
-    return imgItem;
+        return imgItem;
+    } catch (error) {
+        console.error("Error occurred while creating image container: ", error);
+    }
 }

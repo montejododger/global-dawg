@@ -13,7 +13,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Racing Sans One', cursive;
+    font-family: "Racing Sans One", cursive;
 }
 
 .logo {
@@ -76,6 +76,7 @@ li {
 .right .text-wrapper {
     display: flex;
     flex-direction: column;
+    align-content: center;
     justify-content: center;
     text-align: center;
 }
@@ -108,7 +109,7 @@ body {
 .right h3,
 .right p {
     /* text-align: center; */
-    font-family: 'Racing Sans One', cursive;
+    font-family: "Racing Sans One", cursive;
 }
 
 /*                             DOG ITEM INFO            */
@@ -119,6 +120,8 @@ body {
     /* align-content: space-around; */
 }
 .text-wrapper {
+    display: flex;
+    justify-content: center;
     padding: 10px;
 }
 
@@ -130,7 +133,7 @@ body {
     border-radius: 5px;
     padding: 30px;
     margin: 10px;
-    margin-top: 80px; /* Adjust this value as needed */
+    margin-top: 50px; /* Adjust this value as needed */
     background-color: #9d9c9c;
     box-shadow: -5px 5px 2px rgb(48, 48, 48);
 }
@@ -293,8 +296,6 @@ body {
     transition: opacity 0.9s ease, filter 0.5s ease;
 }
 
-
-
 .dog-left-img-item:hover::after {
     opacity: 1;
     filter: grayscale(0%);
@@ -310,7 +311,7 @@ footer {
     background-color: #ccc;
     box-shadow: 0px -2px 15px rgba(0, 0, 0, 0.2);
     color: #333;
-    font-family: 'Racing Sans One', cursive;
+    font-family: "Racing Sans One", cursive;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -364,10 +365,10 @@ h5 {
 li > h3 {
     color: rgb(63, 146, 146);
     font-size: 50px;
-    font-family: 'Racing Sans One', cursive;
+    font-family: "Racing Sans One", cursive;
 }
 li > p {
-    font-family: 'Racing Sans One', cursive;
+    font-family: "Racing Sans One", cursive;
     color: rgb(7, 62, 62);
     font-size: 25px;
     text-align: center;
@@ -378,15 +379,7 @@ li > p {
     display: none;
 }
 
-.dawg {
-    display: flex;
-    align-content: center;
-    object-fit: contain;
-    margin-left: 25px;
-    width: 700px;
-    height: 200px;
-    margin-top: 50px;
-}
+
 
 h3.curious {
     text-align: center;
@@ -395,12 +388,25 @@ h3.curious {
     margin-bottom: 40px;
 }
 
+
+div .dog-selector:focus,
+div .dog-selector:hover {
+    outline: none;
+    border: 1px solid #bbbbbb;
+}
+
+.title {
+    padding-left: 10px;
+}
+
+li > h3 {
+    margin-top: 20px;
+}
+
 div .dog-selector {
-    top: 19%;
-    right: 16.75%;
-    position: absolute;
-    margin-left: 220px;
-    text-align-last: center;
+    position: static;
+    /* margin: auto; */
+    text-align: center;
 
     padding: 8px 12px;
     background-color: #eeeeee;
@@ -408,17 +414,16 @@ div .dog-selector {
     cursor: pointer;
     border-radius: 5px;
 
+    width: 30%;
+    align-self: center;
 }
 
-div .dog-selector:focus, div .dog-selector:hover{
-    outline: none;
-    border: 1px solid #bbbbbb;
-}
 
-.title{
-    padding-left: 10px;
-}
-
-li > h3 {
-    margin-top: 20px;
+.dawg {
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 500px;
+    margin-top: 50px;
 }
