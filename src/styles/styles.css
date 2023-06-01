@@ -479,11 +479,6 @@ div .dog-selector {
 #playButton{
     color: cadetblue;
     font-size: 5em;
-     margin-left: auto;
-     margin-right: auto;
-}
-#playbutton:hover {
-    color: white;
-    transition: 0.5s;
-    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
 }
