@@ -22,9 +22,13 @@ export const fetchSelectedDogs = async () => {
             const dogImg = await getDogImg(dogData.id);
             return { dogData, dogImg };
         });
-        console.log(dogPromises); 
 
-        const results = await Promise.all(dogPromises);
+        // console.log(dogPromises); 
+    
+
+        const results = await Promise.all(dogPromises); 
+
+        console.log(results);
 
         results.forEach((result) => {
             dogImgContainers.push(createImgContainer(result.dogImg));
