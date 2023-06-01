@@ -49,7 +49,7 @@ i {
     color: rgb(3, 115, 195);
 }
 
-i:hover {
+ i:hover {
     color: black;
     transition: 0.5s;
     cursor: pointer;
@@ -477,7 +477,13 @@ div .dog-selector {
 
 
 #playButton{
+    color: cadetblue;
     font-size: 5em;
      margin-left: auto;
      margin-right: auto;
+}
+#playbutton:hover {
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
 }
