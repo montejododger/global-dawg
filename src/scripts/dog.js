@@ -2,12 +2,12 @@ import { getDogInfo, getDogImg } from "./dogAPI.js";
 
 export const fetchSelectedDogs = async () => {
     const dogs = [
-        "Chinese Shar-Pei",
+        "Rottweiler",
         "Labrador Retriever",
         "Golden Retriever",
-        "Shih Tzu",
-        "Alaskan Husky",
+        "Great Dane",
         "Shiba Inu",
+        "Chinese Shar-Pei",
         "Yorkshire Terrier",
         "German Shepherd",
     ];

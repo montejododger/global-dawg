@@ -86,7 +86,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #b76d22, #afa79c);
+    background: linear-gradient(to right, #b76d22, #9c8464);
     background-size: cover;
     /* align-items: center; */
 }
@@ -236,6 +236,64 @@ body {
     filter: grayscale(100%);
     transition: opacity 0.9s ease, filter 0.5s ease;
 }
+.dog-left-img-item.great-dane::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/icon-8/icon-8-9.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+.dog-left-img-item.alaskan-husky::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/icon-8/icon-8-9.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+.dog-left-img-item.rottweiler::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/6-icon/6-icon-17.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+.dog-left-img-item.shiba-inu::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://icon-library.com/images/7-icon/7-icon-8.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%);
+    transition: opacity 0.9s ease, filter 0.5s ease;
+}
+
+
 
 .dog-left-img-item:hover::after {
     opacity: 1;
@@ -313,6 +371,7 @@ li > p {
     color: rgb(7, 62, 62);
     font-size: 25px;
     text-align: center;
+    padding: 5px;
 }
 
 .hidden {
@@ -326,6 +385,7 @@ li > p {
     margin-left: 25px;
     width: 700px;
     height: 200px;
+    margin-top: 50px;
 }
 
 h3.curious {
@@ -337,12 +397,28 @@ h3.curious {
 
 div .dog-selector {
     top: 19%;
-    right: 18%;
+    right: 16.75%;
     position: absolute;
-    margin-left: 200px;
-    width: 200px;
+    margin-left: 220px;
+    text-align-last: center;
+
+    padding: 8px 12px;
+    background-color: #eeeeee;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+    border-radius: 5px;
+
+}
+
+div .dog-selector:focus, div .dog-selector:hover{
+    outline: none;
+    border: 1px solid #bbbbbb;
 }
 
 .title{
     padding-left: 10px;
+}
+
+li > h3 {
+    margin-top: 20px;
 }
