@@ -474,3 +474,10 @@ div .dog-selector {
     border-bottom: 0.18em solid transparent;
     margin-right: -0.08em;
 } */
+
+
+#playButton{
+    font-size: 5em;
+     margin-left: auto;
+     margin-right: auto;
+}
